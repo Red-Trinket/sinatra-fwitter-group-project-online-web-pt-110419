@@ -1,12 +1,10 @@
 require 'sinatra/base'
-#require 'rack-flash'
+
 
 class TweetsController < ApplicationController
 
  enable :sessions
  enable :method_override
-
- #use Rack::Flash
 
     get '/tweets' do
         if logged_in?(session)
@@ -65,14 +63,14 @@ class TweetsController < ApplicationController
             if params["content"] != ""
                 @tweet.content = params["content"]
                 @tweet.save
-                #flash[:message] = "Successfully updated tweet."
+                "Successfully updated tweet."
                 redirect to "/tweets/#{@tweet.id}/edit"
             else 
-                #flash[:message] = "Your tweet cannot be empty."
+                "Your tweet can't be empty"
                 redirect to "/tweets/#{@tweet.id}/edit"
             end
         else
-            #flash[:message] = "You can only edit and delete your own tweets"
+            "You can only edit and delete your own tweets"
             redirect to "/tweets"
         end
     end
